@@ -4,13 +4,15 @@ package com.kuokyn.hms.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Objects;
 
 @Entity
 @Table(name = "authority")
 @Getter
 @Setter
-public class Authority {
+public class Authority implements GrantedAuthority {
 
     @Id
     @Column(name = "title", length = 128, nullable = false)
@@ -26,7 +28,7 @@ public class Authority {
         this.title = title;
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -47,5 +49,5 @@ public class Authority {
         return "Authority{" +
                 "title='" + title + '\'' +
                 '}';
-    }*/
+    }
 }
