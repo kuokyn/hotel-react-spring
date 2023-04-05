@@ -12,29 +12,10 @@ import Room from "./pages/Room";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
-
-/*const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home/>
-    // children: [
-    //   {
-    //     path: "/",
-    //     element:<Home/>
-    //   }
-    // ]
-  },
-  {
-    path: "/register",
-    element: <Register/>
-  },
-  {
-    path: "/login",
-    element: <Login/>
-  }
-]);*/
+import Profile from "./pages/Profile";
 
 function App() {
+  
   return (
     <div className="App">
       <div className="container">
@@ -48,6 +29,7 @@ function App() {
             <Route exact path="/about" element={<About/>} />
             <Route exact path="/login" element={<Login/>} />
             <Route exact path="/register" element={<Register/>} />
+            <Route exact path="/profile" element={<Profile/>} />
          </Routes>
      </Router>
      </div>

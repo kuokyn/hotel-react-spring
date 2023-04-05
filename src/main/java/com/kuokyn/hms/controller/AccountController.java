@@ -1,4 +1,3 @@
-/*
 package com.kuokyn.hms.controller;
 import com.kuokyn.hms.auth.AuthenticationRequest;
 import com.kuokyn.hms.auth.AuthenticationResponse;
@@ -31,45 +30,40 @@ public class AccountController {
 //    @Autowired
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-   */
-/* @PostMapping("/register")
+ /*@PostMapping("/register")
     public long register(@RequestBody User user) {
         if(user == null || userRepository.findByPhone(user.getPhone()) != null) return -1;
-        else {
-            *//*
-*/
+        else {*/
+
 /*user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             Authority userRole = authorityRepository.findAuthorityByTitle("ROLE_USER");
             List<Authority> roles = Arrays.asList(userRole);
             System.out.println("################# " + userRole.toString());
             user.setAuthorities(new HashSet<>(roles));
-            userRepository.save(user);*//*
-*/
-/*
+            userRepository.save(user);
             return userRepository.save(user).getId();
         }
-    }
+    }*/
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public User login(@RequestBody User user) {
         if(userRepository.findByPhone(user.getPhone()) == null) return null;
         else if(!userRepository.findByPhone(user.getPhone()).getPassword().equals(user.getPassword()))
             return null;
         else
             return userRepository.findByPhone(user.getPhone());
-    }*//*
+    }*/
 
-//    @GetMapping
-//    public ResponseEntity<String> sayHello() {
-//        return ResponseEntity.ok("Hello from secured endpoint");
-//    }
-    */
+    @GetMapping("/")
+    public ResponseEntity<String> sayHello() {
+        return ResponseEntity.ok("Hello from secured endpoint");
+    }
 /*@PostMapping("/update")
     public void update(@RequestBody User user){
         if(userRepository.findById(user.getId()) != null) {
             userRepository.save(user);
         }
 
-    }*//*
+    }*/
 
-}*/
+}

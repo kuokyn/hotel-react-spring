@@ -8,6 +8,7 @@ import com.kuokyn.hms.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .name(request.getName())
@@ -26,13 +28,14 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .role(Role.ROLE_USER)
-                .password(request.getPassword())
+                .password(encoder.encode(request.getPassword()))
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
 //        saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(user)
                 .build();
     }
 
@@ -49,6 +52,7 @@ public class AuthenticationService {
         saveUserToken(user, jwtToken);*/
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(user)
                 .build();
     }
 
