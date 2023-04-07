@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import AuthService from '../services/authService';
 import { useState, useEffect } from 'react';
 
-const Navbar = () => {
+import { useNavigate } from 'react-router-dom';
+
+function Navbar() {
+
   const [showAdminBar, setShowAdminBar] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
@@ -15,8 +18,13 @@ const Navbar = () => {
     }
   }, []);
 
+  let navigate = useNavigate();
+
   const logOut = () => {
     AuthService.logout();
+    navigate("/");
+    
+  window.location.reload();
   };
 
   return (

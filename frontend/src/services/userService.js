@@ -1,5 +1,5 @@
 import axios from "axios";
-import authHeader from "./auth-header";
+import authHeader from "./authHeader";
 
 const API_URL = "http://localhost:8080/";
 
@@ -7,8 +7,8 @@ const getPublicContent = () => {
   return axios.get(API_URL + "all");
 };
 
-const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
+const getUsers = () => {
+  return axios.get(API_URL + "users", { headers: authHeader() });
 };
 
 const getAdminBoard = () => {
@@ -17,7 +17,7 @@ const getAdminBoard = () => {
 
 const UserService = {
   getPublicContent,
-  getUserBoard,
+  getUsers,
   getAdminBoard,
 };
 

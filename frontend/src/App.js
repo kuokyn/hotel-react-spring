@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
+import Users from "./pages/Users";
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/contact" element={<Contact/>} />
             <Route exact path="/about" element={<About/>} />
             <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/users" element={<Users/>} />
             <Route exact path="/register" element={<Register/>} />
             <Route exact path="/profile" element={<Profile/>} />
          </Routes>

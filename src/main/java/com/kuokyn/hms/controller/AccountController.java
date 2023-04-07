@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3001")
+//@CrossOrigin(origins = "http://localhost:3001")
 public class AccountController {
     @Autowired
     private UserRepository userRepository;
