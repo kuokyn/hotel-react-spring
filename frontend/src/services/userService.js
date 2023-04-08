@@ -3,22 +3,22 @@ import authHeader from "./authHeader";
 
 const API_URL = "http://localhost:8080/";
 
-const getPublicContent = () => {
-  return axios.get(API_URL + "all");
-};
+// const getPublicContent = () => {
+//   return axios.get(API_URL + "all");
+// };
 
 const getUsers = () => {
   return axios.get(API_URL + "users", { headers: authHeader() });
 };
 
-const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
-};
+// const getAdminBoard = () => {
+//   return axios.get(API_URL + "admin", { headers: authHeader() });
+// };
 
 const UserService = {
-  getPublicContent,
+  // getPublicContent,
   getUsers,
-  getAdminBoard,
+  // getAdminBoard,
 };
 
 export default UserService;
