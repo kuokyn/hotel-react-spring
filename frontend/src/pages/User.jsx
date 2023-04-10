@@ -1,26 +1,63 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import axios from 'axios'
+import {useParams, useNavigate} from 'react-router-dom'
+import authHeader from "../services/authHeader";
 
-// import UserService from '../services/userService'
-const User = () => {
-    const [user, setUser] = useState([]);
+const User = () => {   
+
+    const [surname, setSurname] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [user, setUser] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
+
+    const {id} = useParams();
 
     useEffect(() => {
-        fetch("http://localhost:8080/users/1")
-        .then(res => res.json()) 
-        .then(data => setUser(data));
+        axios.get(`http://localhost:8080/users/${id}`, { headers: authHeader() })
+        .then((response) => {
+            setUser(response.data);
+            setSurname(response.data.surname);
+            setName(response.data.name);
+            setEmail(response.data.email);
+            setPhone(response.data.phone);
+            setPassword(response.data.password);
+            setRole(response.data.role);
+        })
     }, []);
 
-    console.log(user);
+    const data = {
+        surname: surname,
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+        role: role
+    };
+
+    function updateUser(e) {
+        e.preventDefault();
+        axios.put(`http://localhost:3000/users/${id}`, data).then(navigate("/users"));
+    }
+
+    const navigate = useNavigate();
+
     return (
     <div>
-            <div>
-            <span key={user.id}>user: {user.id}</span>
-            <span key={user.name}>name: {user.name} </span>
-            <span key={user.surname}>surname: {user.surname} </span>
-            <span key={user.phone}>phone: {user.phone} </span>
-            <span key={user.email}>email: {user.email} </span>
-            </div>
+        <form>
+            <input disabled value={user.id} className="user-input" name="id"/>
+            <input value={user.name} onChange={(e) => setName(e.target.value)} className="user-input" name="name"/>
+            <input value={user.surname} onChange={(e) => setSurname(e.target.value)} className="user-input" name="surname"/>
+            <input value={user.phone} onChange={(e) => setPhone(e.target.value)} className="user-input" name="phone"/>
+            <input value={user.email} onChange={(e) => setEmail(e.target.value)} className="user-input" name="email"/>
+            <input value={user.role} onChange={(e) => setRole(e.target.value)} className="user-input" name="role"/>
+        </form>
+        <div>
+            <button onClick={updateUser}>update</button>
+        </div>
     </div>
     )
 }
