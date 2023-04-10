@@ -54,6 +54,8 @@ public class UserService {
             _user.setEmail(user.getEmail());
             _user.setName(user.getName());
             _user.setSurname(user.getSurname());
+            _user.setRole(userData.get().getRole());
+            _user.setPassword(userData.get().getPassword());
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
 
-  const [showAdminBar, setShowAdminBar] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
-      setShowAdminBar(user.user.role === "ROLE_ADMIN");
+      setShowAdmin(user.user.role === "ROLE_ADMIN");
     }
   }, []);
 
@@ -32,7 +32,7 @@ function Navbar() {
         <div className="navbar">
             <div className="links">
             <Link className="nav-link" to="/">Главная</Link>
-            {showAdminBar && (
+            {showAdmin && (
               <Link to={"/users"} className="nav-link">
                 Пользователи
               </Link>
@@ -40,7 +40,7 @@ function Navbar() {
             <Link className="nav-link" to="/rooms">Номера</Link>
             <Link className="nav-link" to="/about">О нас</Link>
             <Link className="nav-link" to="/contact">Контакты</Link>
-            {currentUser && (
+            {currentUser && !showAdmin && (
               <Link to={"/profile"} className="nav-link">
                 Профиль
               </Link>

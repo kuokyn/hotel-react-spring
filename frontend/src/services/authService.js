@@ -19,7 +19,7 @@ const login = (phone, password) => {
     })
     .then((response) => {
         if (response.data.token) {
-        // console.log(response.token);
+        console.log(response.token);
         localStorage.setItem("user", JSON.stringify(response.data));
       }
 
