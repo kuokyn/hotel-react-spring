@@ -36,6 +36,13 @@ function Navbar() {
               <Link to={"/users"} className="nav-link">
                 Пользователи
               </Link>
+              
+          )}
+          {showAdmin && (
+              <Link to={"/bookings"} className="nav-link">
+                Брони
+              </Link>
+              
           )}
             <Link className="nav-link" to="/rooms">Номера</Link>
             <Link className="nav-link" to="/about">О нас</Link>

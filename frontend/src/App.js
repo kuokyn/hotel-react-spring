@@ -18,6 +18,9 @@ import User from "./pages/User";
 import UsersRoutes from './utils/UsersRoutes';
 import AdminRoutes from './utils/AdminRoutes';
 import Error404 from './pages/Error404';
+import MyBookings from './pages/MyBookings';
+import Bookings from './pages/Bookings';
+import Booking from './pages/Booking';
 function App() {
   
   return (
@@ -28,12 +31,15 @@ function App() {
          <Routes>
             <Route element={<AdminRoutes/>}>
               {/* <Route exact path="/profile" element={<Profile/>} /> */}
+              <Route exact path="/bookings" element={<Bookings/>} />
+              <Route exact path="/bookings/:id" element={<Booking/>} />
               <Route exact path="/rooms/:id" element={<Room/>} />
               <Route exact path="/users" element={<Users/>} />
               <Route exact path="/users/:id" element={<User/>} />
             </Route>
             <Route element={<UsersRoutes/>}>
               <Route exact path="/profile" element={<Profile/>} />
+              <Route exact path="/mybookings" element={<MyBookings/>} />
             </Route>
             <Route exact path="/" element={<Home/>} />
             <Route exact path="/rooms" element={<Rooms/>} />
