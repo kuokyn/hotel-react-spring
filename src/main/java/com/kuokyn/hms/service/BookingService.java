@@ -1,18 +1,15 @@
 package com.kuokyn.hms.service;
 
 import com.kuokyn.hms.entity.Booking;
-import com.kuokyn.hms.entity.Room;
-import com.kuokyn.hms.entity.RoomType;
+import com.kuokyn.hms.entity.User;
 import com.kuokyn.hms.repo.BookingRepository;
-import com.kuokyn.hms.repo.RoomRepository;
-import com.kuokyn.hms.repo.RoomTypeRepository;
+import com.kuokyn.hms.repo.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,7 @@ public class BookingService {
     private BookingRepository bookingRepository;
 
     public ResponseEntity<List<Booking>> getAllBookings() {
+        getUserBookings();
         try {
             List<Booking> bookings = new ArrayList<>(bookingRepository.findAll());
             if (bookings.isEmpty()) {
@@ -35,10 +33,17 @@ public class BookingService {
         }
     }
 
-    
-    /*public ResponseEntity<List<Booking>> getUserBookings() {
-        
-    }*/
+    public ResponseEntity<List<Booking>> getUserBookings() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String phone = auth.getName();
+        List<Booking> userBookings = new ArrayList<>(bookingRepository.findBookingByUserPhone(phone));
+        if (!userBookings.isEmpty()) {
+            return new ResponseEntity<>(userBookings, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 
     public ResponseEntity<Booking> getBookingById(Long id) {
         Optional<Booking> booking = bookingRepository.findById(id);
@@ -69,7 +74,7 @@ public class BookingService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
+
     public ResponseEntity<HttpStatus> deleteBooking(Long id) {
         try {
             bookingRepository.deleteById(id);

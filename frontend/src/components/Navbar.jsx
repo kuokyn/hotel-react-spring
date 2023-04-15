@@ -48,6 +48,11 @@ function Navbar() {
             <Link className="nav-link" to="/about">О нас</Link>
             <Link className="nav-link" to="/contact">Контакты</Link>
             {currentUser && !showAdmin && (
+              <Link to={"/mybookings"} className="nav-link">
+                Мои бронирования
+              </Link>
+          )}
+            {currentUser && !showAdmin && (
               <Link to={"/profile"} className="nav-link">
                 Профиль
               </Link>

@@ -7,7 +7,17 @@ import { useParams } from 'react-router-dom';
 export const Booking = () => {
     const {id} = useParams();
 
-    const [booking, setBooking] = useState({});
+    const [booking, setBooking] = useState({
+        user: {
+            id: ""
+        },
+        checkIn: "",
+        checkOut: "",
+        room: {
+            id: ""
+        },
+        numberOfPeople: "",
+    });
 
     const {user, room, checkIn, checkOut, numberOfPeople} = booking;
 
@@ -29,6 +39,7 @@ export const Booking = () => {
         const result = await axios.get(`http://localhost:8080/bookings/${id}`);
         setBooking(result.data);
     }
+
     const onInputChange = (e) => {
         setBooking({...booking, [e.target.name]: e.target.value});
     }

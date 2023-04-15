@@ -17,7 +17,9 @@ public interface BookingRepository
 
     List<Booking> findBookingById(Long id);
 
-    List<Booking> findBookingByUserId(Long id);
+    @Query(value = "SELECT * FROM Booking WHERE user_id= (SELECT id FROM User WHERE phone=:phone)",
+            nativeQuery = true)
+    List<Booking> findBookingByUserPhone(@Param("phone") String phone);
 
     void deleteAllByUserId(Long id);
 }

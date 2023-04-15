@@ -21,6 +21,7 @@ import Error404 from './pages/Error404';
 import MyBookings from './pages/MyBookings';
 import Bookings from './pages/Bookings';
 import Booking from './pages/Booking';
+
 function App() {
   
   return (
