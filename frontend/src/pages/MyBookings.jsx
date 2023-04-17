@@ -20,9 +20,9 @@ const MyBookings = () => {
       // };
       console.log(myBookings);
   return (
-    <div>
-      my
-  </div>
+    <section className='section'>
+    <div>my</div>
+  </section>
   )
 }
 

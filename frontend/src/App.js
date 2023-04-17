@@ -4,14 +4,17 @@ import {
   Route,
   BrowserRouter as Router
 } from 'react-router-dom';
-import Home from "./pages/Home";
+import {Space} from 'antd';
+import { useState, useEffect } from 'react';
+import AuthService from './services/authService';
+import Home from "./pages/home/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Rooms from "./pages/Rooms";
 import Room from "./pages/Room";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Profile from "./pages/Profile";
 import Users from "./pages/Users";
 import User from "./pages/User";
@@ -21,38 +24,70 @@ import Error404 from './pages/Error404';
 import MyBookings from './pages/MyBookings';
 import Bookings from './pages/Bookings';
 import Booking from './pages/Booking';
-
+import Footer from './components/footer/Footer';
+import AdminBar from './components/adminbar/AdminBar';
+import AdminHeader from './components/admin_header/AdminHeader';
+import AdminPageContent from './pages/admin/AdminPageContent';
 function App() {
-  
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setShowAdmin(user.user.role === "ROLE_ADMIN");
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <div className="container">
-     <Router>
-      <Navbar />
-         <Routes>
-            <Route element={<AdminRoutes/>}>
-              {/* <Route exact path="/profile" element={<Profile/>} /> */}
-              <Route exact path="/bookings" element={<Bookings/>} />
-              <Route exact path="/bookings/:id" element={<Booking/>} />
-              <Route exact path="/rooms/:id" element={<Room/>} />
-              <Route exact path="/users" element={<Users/>} />
-              <Route exact path="/users/:id" element={<User/>} />
-            </Route>
-            <Route element={<UsersRoutes/>}>
-              <Route exact path="/profile" element={<Profile/>} />
-              <Route exact path="/mybookings" element={<MyBookings/>} />
-            </Route>
-            <Route exact path="/" element={<Home/>} />
-            <Route exact path="/rooms" element={<Rooms/>} />
-            <Route exact path="/contact" element={<Contact/>} />
-            <Route exact path="/about" element={<About/>} />
-            <Route exact path="/login" element={<Login/>} />
-            <Route exact path="/register" element={<Register/>} />
-            <Route path="*" element={<Error404/>} status={404}/>
-         </Routes>
-     </Router>
-     </div>
-    </div>
+    <>
+      {/* <div className="container"> */}
+      <Router>
+        {showAdmin && (
+          <>
+          <AdminHeader/>
+          <Space/>
+          <div className="SideMenuAndPageContent">
+          <AdminBar/>
+          <AdminPageContent/>
+          </div>
+          </>
+          )}
+          {!showAdmin && (
+           <Navbar />
+          )}
+          <Routes>
+              <Route element={<AdminRoutes/>}>
+                {/* <Route exact path="/profile" element={<Profile/>} /> */}
+                <Route exact path="/bookings" element={<Bookings/>} />
+                <Route exact path="/bookings/:id" element={<Booking/>} />
+                <Route exact path="/rooms/:id" element={<Room/>} />
+                <Route exact path="/users" element={<Users/>} />
+                <Route exact path="/users/:id" element={<User/>} />
+              </Route>
+              <Route element={<UsersRoutes/>}>
+                <Route exact path="/profile" element={<Profile/>} />
+                <Route exact path="/mybookings" element={<MyBookings/>} />
+              </Route>
+              <Route exact path="/" element={<Home/>} />
+              <Route exact path="/rooms" element={<Rooms/>} />
+              <Route exact path="/contact" element={<Contact/>} />
+              <Route exact path="/about" element={<About/>} />
+              <Route exact path="/login" element={<Login/>} />
+              <Route exact path="/register" element={<Register/>} />
+              <Route path="*" element={<Error404/>} status={404}/>
+          </Routes>
+          {!showAdmin && (
+           <Footer />
+          )}
+          {showAdmin && (
+          <>
+          <Space/>
+          </>
+          )}
+      </Router>
+     {/* </div> */}
+    </>
   );
 }
 

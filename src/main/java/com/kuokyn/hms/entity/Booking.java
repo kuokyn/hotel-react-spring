@@ -2,10 +2,7 @@ package com.kuokyn.hms.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
@@ -21,6 +18,7 @@ import java.util.Locale;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Booking {
 
     @Id
@@ -69,4 +67,5 @@ public class Booking {
         this.room = new Room();
     }
 */
+
 }

@@ -2,7 +2,9 @@ import React from 'react'
 
 const Rooms = () => {
   return (
-    <div>Rooms</div>
+    <section className='section'>
+      <div>rooms</div>
+    </section>
   )
 }
 

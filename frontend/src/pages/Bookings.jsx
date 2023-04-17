@@ -13,6 +13,7 @@ const Bookings = () => {
       const loadBookings = async () => {
         const result = await axios.get("http://localhost:8080/bookings");
         setBookings(result.data);
+        console.log(result.data);
       };
 
       useEffect(() => {
@@ -25,7 +26,7 @@ const Bookings = () => {
       };
 
   return (
-    <div>
+    <div className='container-item'>
             {bookings.map(booking => (
                 <div>
                     <span key={booking.id}>booking id: {booking.id} </span>

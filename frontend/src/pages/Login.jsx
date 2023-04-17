@@ -46,6 +46,7 @@ function Login() {
 
 
   return (
+    <section className='section'>
     <div className="auth">
         <h1 className="auth-heading">Вход</h1>
         
@@ -64,6 +65,7 @@ function Login() {
             <span>Нет аккаунта? <Link to="/register">Зарегистрируйся!</Link></span>
         </form>
     </div>
+    </section>
   )
 }
 

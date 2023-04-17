@@ -1,12 +1,18 @@
 package com.kuokyn.hms.controller;
 
 import com.kuokyn.hms.entity.Booking;
+import com.kuokyn.hms.entity.Room;
+import com.kuokyn.hms.entity.User;
+import com.kuokyn.hms.repo.RoomRepository;
+import com.kuokyn.hms.repo.UserRepository;
 import com.kuokyn.hms.service.BookingService;
+import com.kuokyn.hms.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @RestController
@@ -15,6 +21,8 @@ import java.util.List;
 public class BookingController {
 
     private BookingService bookingService;
+    private UserRepository userRepository;
+    private RoomRepository roomRepository;
 
     /* ====== ROLE_ADMIN ====== */
     
@@ -30,6 +38,12 @@ public class BookingController {
 
     @PostMapping("/bookings")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        System.out.println(booking);
+        User user = userRepository.findUserById(booking.getUser().getId());
+        Room room = roomRepository.findRoomById(booking.getRoom().getId());
+        booking.setRoom(room);
+        booking.setUser(user);
+        System.out.println(booking);
         return bookingService.createBooking(booking);
     }
 

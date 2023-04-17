@@ -26,5 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findAllUsersUsingFilter(@Param("phrase") String p, Pageable pageable);*/
 
     User findByPhone(String phone);
+    User findUserById(Long id);
 }
 
