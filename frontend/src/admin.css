@@ -5,7 +5,9 @@
     justify-content: flex-start;
     align-items: flex-start;
     background-color: rgba(0, 0, 0, 0.05) ;
+    position: relative;
 }
+
 .admin-header {
     height: 50px;
     display: flex;
@@ -26,5 +28,7 @@
 .admin-navbar {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    /* flex: 1; */
+    max-width: 200px;
+    height: 100%;
 }

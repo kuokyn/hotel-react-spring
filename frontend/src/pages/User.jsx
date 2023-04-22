@@ -1,7 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import axios from 'axios'
 import {useParams, useNavigate} from 'react-router-dom'
+
+
+import axios from 'axios'
+import {useEffect, useState} from 'react'
 
 const User = () => {   
 
@@ -14,6 +16,11 @@ const User = () => {
         email: ""
     });
 
+    // function phoneValidation(){
+    //     const regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    //     return regex.test(user.phone);
+    // }
+
     const {name, surname, phone, email} = user;
 
     const navigate = useNavigate();
@@ -24,6 +31,7 @@ const User = () => {
         // .then(res => res.data)
         .catch(err => console.error("Wasn't able to update property.", err))
         .then(navigate("/users"))
+        window.location.reload();
     }
 
     useEffect(() => {

@@ -61,9 +61,6 @@ public class BookingController {
     
     /* ====== ROLE_USER ====== */
 
-    // проблема - как вывести бронирования текущего авторизованного пользователя?
-    // типа как передать бэку, что я авторизован....
-
     @GetMapping("/mybookings")
     public ResponseEntity<List<Booking>> getUserBookings() {
         return bookingService.getUserBookings();

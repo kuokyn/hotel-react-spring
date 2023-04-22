@@ -18,10 +18,11 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class BookingService {
+
     private BookingRepository bookingRepository;
 
     public ResponseEntity<List<Booking>> getAllBookings() {
-        getUserBookings();
+//        getUserBookings();
         try {
             List<Booking> bookings = new ArrayList<>(bookingRepository.findAll());
             if (bookings.isEmpty()) {

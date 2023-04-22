@@ -37,7 +37,7 @@ const Bookings = () => {
                     <span key={booking.checkIn}>check-in-date: {booking.checkIn} </span>
                     <span key={booking.checkOut}>check-out-date: {booking.checkOut} </span>
                     <Link
-                        to={`/bookings/${booking.id}`}
+                        to={`/admin/bookings/${booking.id}`}
                     >
                         Edit
                     </Link>

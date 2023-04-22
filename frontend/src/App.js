@@ -57,14 +57,6 @@ function App() {
            <Navbar />
           )}
           <Routes>
-              <Route element={<AdminRoutes/>}>
-                {/* <Route exact path="/profile" element={<Profile/>} /> */}
-                <Route exact path="/bookings" element={<Bookings/>} />
-                <Route exact path="/bookings/:id" element={<Booking/>} />
-                <Route exact path="/rooms/:id" element={<Room/>} />
-                <Route exact path="/users" element={<Users/>} />
-                <Route exact path="/users/:id" element={<User/>} />
-              </Route>
               <Route element={<UsersRoutes/>}>
                 <Route exact path="/profile" element={<Profile/>} />
                 <Route exact path="/mybookings" element={<MyBookings/>} />
@@ -75,7 +67,9 @@ function App() {
               <Route exact path="/about" element={<About/>} />
               <Route exact path="/login" element={<Login/>} />
               <Route exact path="/register" element={<Register/>} />
-              <Route path="*" element={<Error404/>} status={404}/>
+              {!showAdmin && (
+                <Route path="*" element={<Error404/>} status={404}/>
+              )}
           </Routes>
           {!showAdmin && (
            <Footer />

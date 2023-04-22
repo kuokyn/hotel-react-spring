@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import {useParams} from 'react-router-dom'
 // import UserService from '../services/userService'
+import { Space } from 'antd';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ const Users = () => {
         password: ""
       });
 
-      const { name, surname, email, phone, password } = user;
+    const { name, surname, email, phone, password } = user;
     const { id } = useParams();
     
       const loadUsers = async () => {
@@ -35,7 +36,6 @@ const Users = () => {
         loadUsers();
         setError("");
       }, []);
-
 
 
       const onInputChange = (e) => {
@@ -63,7 +63,7 @@ const Users = () => {
       }
     // console.log(UserService.getUsers());
     return (
-    <div>
+      <Space size={20} direction="vertical">
         <div>
             <h1>добавить пользователя</h1>
             <span ref={errorRef} className={error ? "error" : "offscreen"} aria-live="assertive">
@@ -88,7 +88,7 @@ const Users = () => {
                     <span key={user.phone}>phone: {user.phone} </span>
                     <span key={user.email}>email: {user.email} </span>
                 <Link
-                        to={`/users/${user.id}`}
+                        to={`/admin/users/${user.id}`}
                     >
                         Edit
                     </Link>
@@ -101,7 +101,7 @@ const Users = () => {
                 </div>
             ))}
         </div>
-    </div>
+    </Space>
     )
 }
 
