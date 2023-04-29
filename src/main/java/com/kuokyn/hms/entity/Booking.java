@@ -28,7 +28,7 @@ public class Booking {
     @Valid
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "bookings"})
     private Room room;
 
     @Valid

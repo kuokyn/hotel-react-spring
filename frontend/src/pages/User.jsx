@@ -1,7 +1,5 @@
 import React from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-
-
 import axios from 'axios'
 import {useEffect, useState} from 'react'
 
@@ -27,11 +25,10 @@ const User = () => {
 
     const updateUser = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/users/${id}`, user)
+        await axios.put(`http://localhost:8080/admin/users/${id}`, user)
         // .then(res => res.data)
         .catch(err => console.error("Wasn't able to update property.", err))
-        .then(navigate("/users"))
-        window.location.reload();
+        .then(navigate("/admin/users"))
     }
 
     useEffect(() => {
@@ -39,8 +36,9 @@ const User = () => {
     }, []);
 
     const loadUser = async () => {
-        const result = await axios.get(`http://localhost:8080/users/${id}`);
+        const result = await axios.get(`http://localhost:8080/admin/users/${id}`);
         setUser(result.data);
+        // console.log(result.data);
     }
 
     const onInputChange = (e) => {

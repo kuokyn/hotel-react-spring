@@ -1,8 +1,10 @@
 package com.kuokyn.hms.service;
 
 import com.kuokyn.hms.entity.Booking;
+import com.kuokyn.hms.entity.Room;
 import com.kuokyn.hms.entity.User;
 import com.kuokyn.hms.repo.BookingRepository;
+import com.kuokyn.hms.repo.RoomRepository;
 import com.kuokyn.hms.repo.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class BookingService {
 
     private BookingRepository bookingRepository;
+    private UserRepository userRepository;
+    private RoomRepository roomRepository;
 
     public ResponseEntity<List<Booking>> getAllBookings() {
 //        getUserBookings();
@@ -56,6 +60,16 @@ public class BookingService {
     // проблема - проверить, свободны ли даты на букинг
     // наверное, это делается во фронте по фильтрам, но пока этого нет
     public ResponseEntity<Booking> createBooking(Booking booking) {
+        System.out.println("------starting search for ids");
+        User user = userRepository.findUserById(booking.getUser().getId());
+        System.out.println(user);
+        Long roomId = booking.getRoom().getId();
+        System.out.println("room id from post query is === " + roomId);
+        Room room = roomRepository.findRoomById(roomId);
+        System.out.println(room);
+        booking.setRoom(room);
+        booking.setUser(user);
+        System.out.println(booking);
         try {
             Booking newBooking = bookingRepository.save(booking);
             return new ResponseEntity<>(newBooking, HttpStatus.CREATED);

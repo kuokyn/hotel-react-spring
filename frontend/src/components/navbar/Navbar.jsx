@@ -36,13 +36,13 @@ function Navbar() {
 
   return (
     <section className='navbar-section'>
-      <header className="header flex">
-        <div className="logo-div">
+      <div className="navbar-logo-div">
           <a href="/" className="logo">
             <GiTwirlyFlower className='icon'/> 
             <h1>CROCUS</h1>
           </a>
-        </div>
+      </div>
+      <header className="header flex">
       <div className={active}>
         <ul className="nav-list flex">
           <li className="nav-item">
@@ -72,7 +72,7 @@ function Navbar() {
             )}
           {currentUser && !showAdmin && (
             <li className="nav-item">
-                  <Link to={"/mybookings"} className="nav-link">
+                  <Link to={"/bookings"} className="nav-link">
                     Мои бронирования
                   </Link>
                   

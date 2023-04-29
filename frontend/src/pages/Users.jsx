@@ -21,12 +21,12 @@ const Users = () => {
     const { id } = useParams();
     
       const loadUsers = async () => {
-        const result = await axios.get("http://localhost:8080/users");
+        const result = await axios.get("http://localhost:8080/admin/users");
         setUsers(result.data);
       };
 
     const deleteUser = async (id) => {
-        await axios.delete(`http://localhost:8080/users/${id}`);
+        await axios.delete(`http://localhost:8080/admin/users/${id}`);
         loadUsers();
       };
       const [error, setError] = useState("");
@@ -46,7 +46,7 @@ const Users = () => {
         e.preventDefault();
         setError("");
         e.preventDefault();
-        await axios.post("http://localhost:8080/users", user).then(
+        await axios.post("http://localhost:8080/admin/users", user).then(
           () => {
             loadUsers();
           },
@@ -80,26 +80,40 @@ const Users = () => {
         </form>
         </div>
         <div>
-            {users.map(user => (
-                <div>
-                    <span key={user.id}>user: {user.id}</span>
-                    <span key={user.name}>name: {user.name} </span>
-                    <span key={user.surname}>surname: {user.surname} </span>
-                    <span key={user.phone}>phone: {user.phone} </span>
-                    <span key={user.email}>email: {user.email} </span>
-                <Link
-                        to={`/admin/users/${user.id}`}
-                    >
-                        Edit
-                    </Link>
-                <button
-                        className="btn btn-danger mx-2"
-                        onClick={() => deleteUser(user.id)}
-                    >
-                        Delete
-                    </button>
-                </div>
-            ))}
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>Телефон</th>
+              <th>Почта</th>
+            </tr>
+            {users.map((user, key) => {
+              return (
+                <tr key={key}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.surname}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <Link
+                          to={`/admin/users/${user.id}`}
+                      >
+                          Редактировать
+                      </Link>
+                  </td>
+                  <td><button
+                          className="btn btn-danger mx-2"
+                          onClick={() => deleteUser(user.id)}
+                      >
+                          Delete
+                      </button>
+                  </td>
+                </tr>
+              )
+            })}
+          </table>
         </div>
     </Space>
     )

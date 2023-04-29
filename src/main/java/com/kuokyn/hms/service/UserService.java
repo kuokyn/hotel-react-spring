@@ -62,6 +62,20 @@ public class UserService {
         }
     }
 
+    public ResponseEntity<User> updateProfile(Long id, User user) {
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            User _user = userData.get();
+            _user.setPhone(user.getPhone());
+            _user.setEmail(user.getEmail());
+            _user.setName(user.getName());
+            _user.setSurname(user.getSurname());
+            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     public ResponseEntity<HttpStatus> deleteUser(Long id) {
         try {
             userRepository.deleteById(id);

@@ -4,10 +4,11 @@ import Dashboard from './Dashboard'
 import AdminRoutes from '../../utils/AdminRoutes'
 import Bookings from '../Bookings'
 import Booking from '../Booking'
-import Rooms from '../Rooms'
-import Room from '../Room'
+import Rooms from './Rooms'
+import Room from './Room'
 import Users from '../Users'
 import User from '../User'
+import Error404 from '../Error404'
 
 const AdminPageContent = () => {
     return (
@@ -16,6 +17,7 @@ const AdminPageContent = () => {
           <Route path="/orders" element={<Orders />}></Route>
           <Route path="/customers" element={<Customers />}></Route> */}
           <Route element={<AdminRoutes/>}>
+            <Route path="/" element={<Dashboard />}></Route>
             <Route path="/admin" element={<Dashboard />}></Route>
                 {/* <Route exact path="/profile" element={<Profile/>} /> */}
                 <Route exact path="/admin/bookings" element={<Bookings/>} />
@@ -24,6 +26,7 @@ const AdminPageContent = () => {
                 <Route exact path="/admin/rooms/:id" element={<Room/>} />
                 <Route exact path="/admin/users" element={<Users/>} />
                 <Route exact path="/admin/users/:id" element={<User/>} />
+                <Route path="*" element={<Error404/>} status={404}/>
           </Route>
         </Routes>
       );

@@ -6,13 +6,11 @@ import com.kuokyn.hms.entity.User;
 import com.kuokyn.hms.repo.RoomRepository;
 import com.kuokyn.hms.repo.UserRepository;
 import com.kuokyn.hms.service.BookingService;
-import com.kuokyn.hms.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @RestController
@@ -21,49 +19,40 @@ import java.util.List;
 public class BookingController {
 
     private BookingService bookingService;
-    private UserRepository userRepository;
-    private RoomRepository roomRepository;
 
-    /* ====== ROLE_ADMIN ====== */
+    /* ====== ADMIN ====== */
     
-    @GetMapping("/bookings")
+    @GetMapping("/admin/bookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
         return bookingService.getAllBookings();
     }
 
-    @GetMapping("/bookings/{id}")
+    @GetMapping("/admin/bookings/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable("id") Long id) {
         return bookingService.getBookingById(id);
     }
 
-    @PostMapping("/bookings")
+    @PostMapping("/admin/bookings")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
-        System.out.println(booking);
-        User user = userRepository.findUserById(booking.getUser().getId());
-        Room room = roomRepository.findRoomById(booking.getRoom().getId());
-        booking.setRoom(room);
-        booking.setUser(user);
-        System.out.println(booking);
         return bookingService.createBooking(booking);
     }
 
-    @PutMapping("/bookings/{id}")
+    @PutMapping("/admin/bookings/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable("id") Long id,
                                                  @RequestBody Booking booking) {
         return bookingService.updateBooking(id, booking);
     }
 
-    @DeleteMapping("/bookings/{id}")
+    @DeleteMapping("/admin/bookings/{id}")
     public ResponseEntity<HttpStatus> deleteBooking(@PathVariable("id") Long id) {
         return bookingService.deleteBooking(id);
     }
-
     
-    /* ====== ROLE_USER ====== */
+    /* ====== USER ====== */
 
-    @GetMapping("/mybookings")
+    @GetMapping("/bookings")
     public ResponseEntity<List<Booking>> getUserBookings() {
-        return bookingService.getUserBookings();
+        return bookingService.getAllBookings();
     }
 
     /*@GetMapping("/mybookings/{id}")

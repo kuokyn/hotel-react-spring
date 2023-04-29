@@ -2,7 +2,7 @@ import React , {useRef, useState, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 // import axios from '../api/axios'
 import AuthService from '../services/authService';
-
+import './auth.css';
 function Login() {
 
   let navigate = useNavigate();

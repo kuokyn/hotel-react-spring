@@ -31,8 +31,8 @@ public class Room {
     @Column(name="people", nullable = false)
     private int people;
 
-    @OneToMany(mappedBy = "room")
-    @JsonIgnore
-    private Set<Booking> bookings;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "room")
+//    private Set<Booking> bookings;
 
 }

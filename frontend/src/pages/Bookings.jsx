@@ -11,7 +11,7 @@ const Bookings = () => {
     const { id } = useParams();
     
       const loadBookings = async () => {
-        const result = await axios.get("http://localhost:8080/bookings");
+        const result = await axios.get("http://localhost:8080/admin/bookings");
         setBookings(result.data);
         console.log(result.data);
       };
@@ -21,7 +21,7 @@ const Bookings = () => {
       }, []);
 
       const deleteBooking = async (id) => {
-        await axios.delete(`http://localhost:8080/bookings/${id}`);
+        await axios.delete(`http://localhost:8080/admin/bookings/${id}`);
         loadBookings();
       };
 

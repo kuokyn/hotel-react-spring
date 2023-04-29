@@ -29,14 +29,15 @@ export const Booking = () => {
 
     const updateBooking = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/bookings/${id}`, booking)
+        await axios.put(`http://localhost:8080/admin/bookings/${id}`, booking)
         // .then(res => res.data)
         .catch(err => console.error("Wasn't able to update property.", err))
-        .then(navigate("/bookings"))
+        .then(navigate("/admin/bookings"))
+        window.location.reload();
     }
 
     const loadBooking = async () => {
-        const result = await axios.get(`http://localhost:8080/bookings/${id}`);
+        const result = await axios.get(`http://localhost:8080/admin/bookings/${id}`);
         setBooking(result.data);
     }
 

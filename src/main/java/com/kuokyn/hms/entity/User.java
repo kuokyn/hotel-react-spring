@@ -47,6 +47,7 @@ public class User implements UserDetails {
     private String phone;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
     @JsonIgnore

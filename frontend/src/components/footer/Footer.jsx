@@ -7,17 +7,18 @@ import {GiTwirlyFlower} from 'react-icons/gi';
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 const Footer = () => {
   return (
-    <section className='footer'>
+    <section className='footer flex'>
+      <div className="footer-container">
       <div className="footer-content container">
         <div className="footer-info">
           <div className="footer-column">
             <div className="footer-item">
             <div className="logo-div">
-          <a href="/" className="logo">
-            <GiTwirlyFlower className='icon'/> 
-            <h1>CROCUS</h1>
-          </a>
-        </div>
+              <a href="/" className="logo">
+                <GiTwirlyFlower className='icon'/> 
+                <h1>CROCUS</h1>
+              </a>
+            </div>
               <h4>Контакты</h4>
               <div className="footer-item-info">
                   <div className="contact-text">
@@ -101,6 +102,7 @@ const Footer = () => {
       </div>
       <div className='footer-rights'>
         (c) 2023 All rights reserved
+      </div>
       </div>
     </section>
   )

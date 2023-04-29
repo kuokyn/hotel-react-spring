@@ -3,7 +3,6 @@ package com.kuokyn.hms.controller;
 import com.kuokyn.hms.entity.Room;
 import com.kuokyn.hms.service.RoomService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +14,20 @@ import java.util.List;
 public class RoomController {
 
     private RoomService roomService;
+
+    /* ====== ADMIN ====== */
+
+    @GetMapping("/admin/rooms")
+    public ResponseEntity<List<Room>> getAllAdminRooms() {
+        return roomService.getAllRooms();
+    }
+
+    @GetMapping("/admin/rooms/{id}")
+    public ResponseEntity<Room> getAdminRoomById(@PathVariable("id") Long id) {
+        return roomService.getRoomById(id);
+    }
+
+    /* ====== USER ====== */
 
     @GetMapping("/rooms")
     public ResponseEntity<List<Room>> getAllRooms() {

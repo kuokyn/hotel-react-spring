@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react';
+import AuthService from '../services/authService';
+import { Link } from 'react-router-dom';
 
 const MyBookings = () => {
 
@@ -11,11 +13,11 @@ const MyBookings = () => {
   // ибо гет с mybookings тупо не работает
 
 
-
+  const currentUser = AuthService.getCurrentUser();
   const [myBookings, setMyBookings] = useState([]);
 
   const loadMyBookings = async () => {
-    const resultBooking = await axios.get("http://localhost:8080/mybookings");
+    const resultBooking = await axios.get("http://localhost:8080/bookings");
       setMyBookings(resultBooking.data);
   };
 
@@ -32,7 +34,21 @@ const MyBookings = () => {
       
   return (
     <section className='section'>
-    <div>my</div>
+    <div>{
+              myBookings.map((booking, index) => {
+                if (currentUser.user.phone === booking.user.phone) {
+                  return <tr>
+                    <td>{booking.id}</td>
+                    <td>{booking.checkIn}</td>
+                    <td>{booking.checkOut}</td>
+                    <td>{booking.room.roomType.id}</td>
+                    {/* <td>
+                      <Link to={`/view_visit_user/${booking.visitCode}`} className="btn btn-success mx-2">Просмотреть</Link>
+                    </td> */}
+                  </tr>
+                }
+                return null;
+              })}</div>
   </section>
   )
 }
