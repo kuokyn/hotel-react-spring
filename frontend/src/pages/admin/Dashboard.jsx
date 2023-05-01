@@ -4,6 +4,7 @@ import {
     ShoppingOutlined,
     UserOutlined,
   } from "@ant-design/icons";
+import {TbHotelService} from "react-icons/tb";
   import { Card, Space, Statistic, Table, Typography } from "antd";
   import { useEffect, useState } from "react";
   
@@ -32,41 +33,22 @@ import {
     const [inventory, setInventory] = useState(0);
     const [customers, setCustomers] = useState(0);
     const [revenue, setRevenue] = useState(0);
-     const getOrders = () => {
-        return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
-      };
-      
-       const getRevenue = () => {
-        return fetch("https://dummyjson.com/carts").then((res) => res.json());
-      };
-      
-       const getInventory = () => {
-        return fetch("https://dummyjson.com/products").then((res) => res.json());
-      };
-      
-       const getCustomers = () => {
-        return fetch("https://dummyjson.com/users").then((res) => res.json());
-      };
-       const getComments = () => {
-        return fetch("https://dummyjson.com/comments").then((res) => res.json());
+     const getDashboard = () => {
+        return fetch("http://localhost:8080/admin").then((res) => res.json());
       };
 
     useEffect(() => {
-      getOrders().then((res) => {
-        setOrders(res.total);
-        setRevenue(res.discountedTotal);
-      });
-      getInventory().then((res) => {
-        setInventory(res.total);
-      });
-      getCustomers().then((res) => {
-        setCustomers(res.total);
+      getDashboard().then((res) => {
+        setOrders(res.bookingAmount);
+        setCustomers(res.userAmount);
+        setRevenue(res.revenue);
+        setInventory(res.roomAmount)
       });
     }, []);
   
     return (
       <Space size={20} direction="vertical">
-        <Typography.Title level={4}>Dashboard</Typography.Title>
+        <Typography.Title level={4}>Панель администратора</Typography.Title>
         <Space direction="horizontal">
           <DashboardCard
             icon={
@@ -80,22 +62,22 @@ import {
                 }}
               />
             }
-            title={"Orders"}
+            title={"Бронирования"}
             value={orders}
           />
           <DashboardCard
             icon={
-              <ShoppingOutlined
+              <TbHotelService
                 style={{
                   color: "blue",
                   backgroundColor: "rgba(0,0,255,0.25)",
                   borderRadius: 20,
-                  fontSize: 24,
+                  fontSize: 40,
                   padding: 8,
                 }}
               />
             }
-            title={"Inventory"}
+            title={"Номера"}
             value={inventory}
           />
           <DashboardCard
@@ -110,7 +92,7 @@ import {
                 }}
               />
             }
-            title={"Customer"}
+            title={"Пользователи"}
             value={customers}
           />
           <DashboardCard
@@ -125,7 +107,7 @@ import {
                 }}
               />
             }
-            title={"Revenue"}
+            title={"Доход"}
             value={revenue}
           />
         </Space>
@@ -151,32 +133,32 @@ import {
     const [dataSource, setDataSource] = useState([]);
     const [loading, setLoading] = useState(false);
     const getOrders = () => {
-        return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
+        return fetch("http://localhost:8080/admin").then((res) => res.json());
       };
     useEffect(() => {
       setLoading(true);
       getOrders().then((res) => {
-        setDataSource(res.products.splice(0, 3));
+        setDataSource(res.recentBookings.splice(0, 3));
         setLoading(false);
       });
     }, []);
-  
+    console.log(dataSource);
     return (
       <>
-        <Typography.Text>Recent Orders</Typography.Text>
+        <Typography.Text>Последние бронирования</Typography.Text>
         <Table
           columns={[
             {
-              title: "Title",
-              dataIndex: "title",
+              title: "Бронирование",
+              dataIndex: "id",
             },
             {
-              title: "Quantity",
-              dataIndex: "quantity",
+              title: "Дата въезда",
+              dataIndex: "checkIn",
             },
             {
-              title: "Price",
-              dataIndex: "discountedPrice",
+              title: "Дата выезда",
+              dataIndex: "checkOut",
             },
           ]}
           loading={loading}
@@ -198,7 +180,7 @@ import {
     useEffect(() => {
       getRevenue().then((res) => {
         const labels = res.carts.map((cart) => {
-          return `User-${cart.userId}`;
+          return `Бронь-${cart.userId}`;
         });
         const data = res.carts.map((cart) => {
           return cart.discountedTotal;
@@ -208,7 +190,7 @@ import {
           labels,
           datasets: [
             {
-              label: "Revenue",
+              label: "Доход",
               data: data,
               backgroundColor: "rgba(255, 0, 0, 1)",
             },
@@ -227,7 +209,7 @@ import {
         },
         title: {
           display: true,
-          text: "Order Revenue",
+          text: "Доход по бронированию",
         },
       },
     };

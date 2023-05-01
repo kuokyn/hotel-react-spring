@@ -50,6 +50,14 @@ const AdminBar = () => {
         label: "Номера",
         key: '/admin/rooms'
       },
+      {
+        label: "Заявки",
+        key: '/admin/requests'
+      },
+      {
+        label: "Профиль",
+        key: '/admin/profile'
+      }
     ]}>
     
     </Menu>

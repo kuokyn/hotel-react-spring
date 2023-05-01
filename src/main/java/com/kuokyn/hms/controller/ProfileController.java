@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProfileController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PutMapping("/profile/edit")
     public ResponseEntity<User> updateProfile(@RequestBody User user) {

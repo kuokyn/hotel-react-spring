@@ -100,4 +100,8 @@ public class BookingService {
 
     }
 
+    public Long getBookingsAmount() {
+       return bookingRepository.count();
+    }
+
 }

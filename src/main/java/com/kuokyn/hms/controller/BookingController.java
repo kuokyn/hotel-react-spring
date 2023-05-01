@@ -1,11 +1,15 @@
 package com.kuokyn.hms.controller;
 
 import com.kuokyn.hms.entity.Booking;
+import com.kuokyn.hms.entity.Dashboard;
 import com.kuokyn.hms.entity.Room;
 import com.kuokyn.hms.entity.User;
+import com.kuokyn.hms.repo.BookingRepository;
 import com.kuokyn.hms.repo.RoomRepository;
 import com.kuokyn.hms.repo.UserRepository;
 import com.kuokyn.hms.service.BookingService;
+import com.kuokyn.hms.service.RoomService;
+import com.kuokyn.hms.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +22,37 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
 
-    private BookingService bookingService;
+    private final BookingService bookingService;
+    private final UserService userService;
+    private final RoomService roomService;
+    private BookingRepository bookingRepository;
 
     /* ====== ADMIN ====== */
-    
+
+    @GetMapping("/admin")
+    public ResponseEntity<Dashboard> getDashboard() {
+        try {
+            Dashboard dashboard = new Dashboard(userService.getUsersAmount(),
+                    bookingService.getBookingsAmount(),
+                    roomService.getRoomsAmount());
+            dashboard.setRecentBookings(getRecentBookings());
+            dashboard.setRevenue(getAllRevenue());
+            System.out.println(dashboard);
+            return new ResponseEntity<>(dashboard, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    private List<Booking> getRecentBookings() {
+        System.out.println(bookingRepository.findLastThree());
+        return bookingRepository.findLastThree();
+    }
+
+    private Double getAllRevenue(){
+        return bookingRepository.getAllRevenue();
+    }
+
     @GetMapping("/admin/bookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
         return bookingService.getAllBookings();

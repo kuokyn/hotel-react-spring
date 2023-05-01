@@ -22,4 +22,14 @@ public interface BookingRepository
     List<Booking> findBookingByUserPhone(@Param("phone") String phone);
 
     void deleteAllByUserId(Long id);
+
+    @Query(value = "SELECT * FROM booking ORDER BY id DESC LIMIT 3",
+            nativeQuery = true)
+    List<Booking> findLastThree();
+
+    @Query(value="SELECT SUM(price) FROM booking\n" +
+            "JOIN Room ON booking.room_id=room.id\n" +
+            "JOIN room_type ON room.room_type_title=room_type.title",
+    nativeQuery = true)
+    Double getAllRevenue();
 }

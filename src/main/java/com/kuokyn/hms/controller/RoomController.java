@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class RoomController {
 
-    private RoomService roomService;
+    private final RoomService roomService;
 
     /* ====== ADMIN ====== */
 

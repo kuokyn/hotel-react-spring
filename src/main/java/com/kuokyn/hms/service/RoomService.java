@@ -31,6 +31,10 @@ public class RoomService {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    public Long getRoomsAmount() {
+        return roomRepository.count();
+    }
+
     /*public ResponseEntity<Room> createRoom(Room room) {
         try {
             Room newRoom = roomRepository.save(room);

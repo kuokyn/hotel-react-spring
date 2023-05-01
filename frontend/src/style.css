@@ -11,6 +11,7 @@
     --input: rgb(240, 240, 240);
     --body: rgb(224, 224, 235);
     --cardBG: rgb(225, 225, 235);
+    height: 100%;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
@@ -105,7 +106,7 @@ input {
 }
 
 body {
-
+    
     background-color: rgb(224, 224, 235);
 }
 
