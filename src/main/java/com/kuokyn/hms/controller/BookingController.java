@@ -25,32 +25,23 @@ public class BookingController {
     private final BookingService bookingService;
     private final UserService userService;
     private final RoomService roomService;
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
 
     /* ====== ADMIN ====== */
 
     @GetMapping("/admin")
     public ResponseEntity<Dashboard> getDashboard() {
         try {
-            Dashboard dashboard = new Dashboard(userService.getUsersAmount(),
-                    bookingService.getBookingsAmount(),
-                    roomService.getRoomsAmount());
-            dashboard.setRecentBookings(getRecentBookings());
-            dashboard.setRevenue(getAllRevenue());
-            System.out.println(dashboard);
+            Dashboard dashboard = new Dashboard();
+            dashboard.setUserAmount(userService.getUsersAmount());
+            dashboard.setBookingAmount(bookingService.getBookingsAmount());
+            dashboard.setRoomAmount(roomService.getRoomAmount());
+            dashboard.setRecentBookings(bookingRepository.findLastThree());
+            dashboard.setRevenue(bookingRepository.getAllRevenue());
             return new ResponseEntity<>(dashboard, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-    }
-
-    private List<Booking> getRecentBookings() {
-        System.out.println(bookingRepository.findLastThree());
-        return bookingRepository.findLastThree();
-    }
-
-    private Double getAllRevenue(){
-        return bookingRepository.getAllRevenue();
     }
 
     @GetMapping("/admin/bookings")
@@ -61,6 +52,11 @@ public class BookingController {
     @GetMapping("/admin/bookings/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable("id") Long id) {
         return bookingService.getBookingById(id);
+    }
+
+    @GetMapping("/admin/checkouts")
+    public ResponseEntity<List<Booking>> getBookingCheckouts() {
+        return bookingService.getBookingCheckouts();
     }
 
     @PostMapping("/admin/bookings")
@@ -86,24 +82,25 @@ public class BookingController {
         return bookingService.getAllBookings();
     }
 
-    /*@GetMapping("/mybookings/{id}")
+    @GetMapping("/bookings/{id}")
     public ResponseEntity<Booking> getUserBookingById(@PathVariable("id") Long id) {
-        return bookingService.getUserBookingById(id);
+        return bookingService.getBookingById(id);
     }
 
-    @PostMapping("/book")
+    @PostMapping("/booking/add")
     public ResponseEntity<Booking> createUserBooking(@RequestBody Booking booking) {
         return bookingService.createBooking(booking);
     }
 
-    @PutMapping("/mybookings/{id}")
+
+    @PutMapping("/bookings/{id}")
     public ResponseEntity<Booking> updateUserBooking(@PathVariable("id") Long id,
                                                  @RequestBody Booking booking) {
         return bookingService.updateBooking(id, booking);
     }
 
-    @DeleteMapping("/mybookings/{id}")
+    @DeleteMapping("/bookings")
     public ResponseEntity<HttpStatus> deleteUserBooking(@PathVariable("id") Long id) {
         return bookingService.deleteBooking(id);
-    }*/
+    }
 }

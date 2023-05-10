@@ -66,6 +66,7 @@ const Register = () => {
   }
   
   return (
+    <section className='section'>
     <div  className='auth'>
         <h1 className='auth-heading'>Регистрация</h1>
         <span ref={errorRef} className={error ? "error" : "offscreen"} aria-live="assertive">
@@ -81,6 +82,7 @@ const Register = () => {
             <button className='auth-btn'>Зарегистрироваться</button>
         </form>
     </div>
+    </section>
   )
 }
 

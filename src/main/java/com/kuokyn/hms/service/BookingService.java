@@ -84,6 +84,8 @@ public class BookingService {
             Booking _booking = bookingData.get();
             _booking.setCheckIn(booking.getCheckIn());
             _booking.setCheckOut(booking.getCheckOut());
+            _booking.setNumberOfPeople(booking.getNumberOfPeople());
+            _booking.setRoom(roomRepository.findRoomById(booking.getRoom().getId()));
             return new ResponseEntity<>(bookingRepository.save(_booking), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -104,4 +106,13 @@ public class BookingService {
        return bookingRepository.count();
     }
 
+    public ResponseEntity<List<Booking>> getBookingCheckouts() {
+        List<Booking> bookingCheckouts = new ArrayList<>(bookingRepository.getBookingCheckouts());
+        if (!bookingCheckouts.isEmpty()) {
+            return new ResponseEntity<>(bookingCheckouts, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }

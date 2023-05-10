@@ -1,5 +1,6 @@
 package com.kuokyn.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -42,10 +43,12 @@ public class Booking {
 
     @Column(name = "check_in_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkIn;
 
     @Column(name = "check_out_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkOut;
 
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -61,11 +64,4 @@ public class Booking {
             throw new RuntimeException(e);
         }
     }
-
-    /*public Booking() {
-        this.user = new User();
-        this.room = new Room();
-    }
-*/
-
 }

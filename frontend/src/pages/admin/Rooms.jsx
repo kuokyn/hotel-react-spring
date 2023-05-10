@@ -10,58 +10,69 @@ const Rooms = () => {
 
   const [rooms, setRooms] = useState([]);
 
-    const [room, setRoom] = useState({
-        room_id: "",
-        chambers: "",
-        people: "",
-        roomType: ""
-      });
+    // const [room, setRoom] = useState({
+    //     id: "",
+    //     chambers: "",
+    //     people: "",
+    //     roomType: {
+    //       price: "",
+    //     }
+    //   });
     const { id } = useParams();
     
       const loadRooms = async () => {
-        const result = await axios.get("http://localhost:8080/rooms");
+        const result = await axios.get("http://localhost:8080/admin/rooms");
         setRooms(result.data);
       };
 
-    const deleteRoom = async (id) => {
-        await axios.delete(`http://localhost:8080/rooms/${id}`);
-        loadRooms();
-      };
-      const [error, setError] = useState("");
-      const errorRef = useRef();
+    // const deleteRoom = async (id) => {
+    //     await axios.delete(`http://localhost:8080/admin/rooms/${id}`);
+    //     loadRooms();
+    //   };
+    //   const [error, setError] = useState("");
+    //   const errorRef = useRef();
     
       useEffect(() => {
         loadRooms();
-        setError("");
+        // setError("");
       }, []);
 
       console.log(rooms);
 
     
   return (
-    <Space size={20} direction="vertical">
-        <div>
-            {rooms.map(room => (
-                <div>
-                    <span key={room.id}>room: {room.id}</span>
-                    <span key={room.chambers}>chambers: {room.chambers} </span>
-                    <span key={room.roomType.name}>name: {room.roomType.name} </span>
-                    <span key={room.chambers}>chambers: {room.chambers} </span>
-                <Link
-                        to={`/admin/rooms/${room.id}`}
-                    >
-                        Edit
-                    </Link>
-                <button
-                        className="btn btn-danger mx-2"
-                        onClick={() => deleteRoom(room.id)}
-                    >
-                        Delete
-                    </button>
-                </div>
-            ))}
+    <div className='users-container'>
+         <div>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Тип</th>
+              <th>Цена</th>
+              <th>Комнаты</th>
+              <th>Вместимость</th>
+              <th></th>
+            </tr>
+            {rooms.map((room, key) => {
+              return (
+                <tr key={key}>
+                  <td>{room.id}</td>
+                  <td>{room.roomType.id}</td>
+                  <td>{room.roomType.price}</td>
+                  <td>{room.chambers}</td>
+                  <td>{room.people}</td>
+                  <td>
+                    <Link className='edit-link'
+                          to={`/admin/rooms/${room.id}`}
+                      >
+                          Редактировать
+                      </Link>
+                  </td>
+                </tr>
+              )
+            })}
+          </table>
         </div>
-    </Space>
+    </div>
   )
 }
 

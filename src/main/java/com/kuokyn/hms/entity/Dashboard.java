@@ -1,7 +1,5 @@
 package com.kuokyn.hms.entity;
 
-import com.kuokyn.hms.repo.BookingRepository;
-import com.kuokyn.hms.service.BookingService;
 import lombok.*;
 
 import java.util.List;
@@ -18,11 +16,4 @@ public class Dashboard {
     private Double revenue;
     private List<Booking> recentBookings;
 
-    public Dashboard(Long userAmount,
-                     Long bookingAmount,
-                     Long roomAmount) {
-        this.userAmount = userAmount;
-        this.bookingAmount = bookingAmount;
-        this.roomAmount = roomAmount;
-    }
 }

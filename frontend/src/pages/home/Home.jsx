@@ -6,8 +6,8 @@ const Home = () => {
     <section className='section home'>
       <div className="hero">
         <div className="hero-title">
-          <h1>Отпуск с пользой для здоровья</h1>
-          <h2>Незабываемые впечатления без забот</h2>
+          <h1>Ура я в отпуск</h1>
+          <h2>И ты тоже давай</h2>
         </div>
         <div className="container home-content">
           <div className="searchBooking flex">

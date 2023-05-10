@@ -51,6 +51,10 @@ const AdminBar = () => {
         key: '/admin/rooms'
       },
       {
+        label: "Счета за бронирования",
+        key: '/admin/checkouts'
+      },
+      {
         label: "Заявки",
         key: '/admin/requests'
       },

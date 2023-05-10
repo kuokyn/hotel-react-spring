@@ -5,7 +5,7 @@ import axios from 'axios'
 import {useParams} from 'react-router-dom'
 // import UserService from '../services/userService'
 import { Space } from 'antd';
-
+import './users.css'
 const Users = () => {
     const [users, setUsers] = useState([]);
 
@@ -63,9 +63,47 @@ const Users = () => {
       }
     // console.log(UserService.getUsers());
     return (
-      <Space size={20} direction="vertical">
-        <div>
-            <h1>добавить пользователя</h1>
+      <div className='users-container'>
+         <div>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>Телефон</th>
+              <th>Почта</th>
+              <th></th>
+              <th></th>
+            </tr>
+            {users.map((user, key) => {
+              return (
+                <tr key={key}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.surname}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <Link className='edit-link'
+                          to={`/admin/users/${user.id}`}
+                      >
+                          Редактировать
+                      </Link>
+                  </td>
+                  <td><button
+                          className="btn btn-danger mx-2"
+                          onClick={() => deleteUser(user.id)}
+                      >
+                          Удалить
+                      </button>
+                  </td>
+                </tr>
+              )
+            })}
+          </table>
+        </div>
+        <div className='add-user-form'>
+            <h1>Добавить пользователя</h1>
             <span ref={errorRef} className={error ? "error" : "offscreen"} aria-live="assertive">
           {error}
         </span>
@@ -79,43 +117,7 @@ const Users = () => {
             <button className='auth-btn'>Добавить</button>
         </form>
         </div>
-        <div>
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Имя</th>
-              <th>Фамилия</th>
-              <th>Телефон</th>
-              <th>Почта</th>
-            </tr>
-            {users.map((user, key) => {
-              return (
-                <tr key={key}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.surname}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <Link
-                          to={`/admin/users/${user.id}`}
-                      >
-                          Редактировать
-                      </Link>
-                  </td>
-                  <td><button
-                          className="btn btn-danger mx-2"
-                          onClick={() => deleteUser(user.id)}
-                      >
-                          Delete
-                      </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </table>
-        </div>
-    </Space>
+    </div>
     )
 }
 

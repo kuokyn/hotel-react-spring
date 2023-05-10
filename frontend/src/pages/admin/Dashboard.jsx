@@ -48,7 +48,7 @@ import {TbHotelService} from "react-icons/tb";
   
     return (
       <Space size={20} direction="vertical">
-        <Typography.Title level={4}>Панель администратора</Typography.Title>
+        <h2>Панель администратора</h2>
         <Space direction="horizontal">
           <DashboardCard
             icon={
@@ -145,7 +145,7 @@ import {TbHotelService} from "react-icons/tb";
     console.log(dataSource);
     return (
       <>
-        <Typography.Text>Последние бронирования</Typography.Text>
+        <h3>Последние бронирования</h3>
         <Table
           columns={[
             {

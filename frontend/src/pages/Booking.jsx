@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './booking.css'
 
 export const Booking = () => {
     const {id} = useParams();
@@ -33,7 +34,6 @@ export const Booking = () => {
         // .then(res => res.data)
         .catch(err => console.error("Wasn't able to update property.", err))
         .then(navigate("/admin/bookings"))
-        window.location.reload();
     }
 
     const loadBooking = async () => {
@@ -48,14 +48,36 @@ export const Booking = () => {
     return (
     <div>
         <form>
-            <input value={checkIn} onChange={(e) => onInputChange(e)} className="user-input" name="checkIn"/>
-            <input value={checkOut} onChange={(e) => onInputChange(e)} className="user-input" name="checkOut"/>
-            <input value={numberOfPeople} onChange={(e) => onInputChange(e)} className="user-input" name="numberOfPeople"/>
-            <input value={user.id} onChange={(e) => onInputChange(e)} className="user-input" name="user"/>
-            <input value={room.id} onChange={(e) => onInputChange(e)} className="user-input" name="room"/>
+            <table>
+                <tr>
+                <th>Наименование</th>
+                <th>Поле</th>
+                </tr>
+                <tr>
+                  <td><label for='checkIn'>Дата въезда</label></td>
+                  <td><input value={checkIn} onChange={(e) => onInputChange(e)} className="auth-input" name="checkIn"/></td>
+                </tr>
+                <tr>
+                  <td><label for='checkOut'>Дата выезда</label></td>
+                  <td><input value={checkOut} onChange={(e) => onInputChange(e)} className="auth-input" name="checkOut"/></td>
+                </tr>
+                <tr>
+                  <td><label for='numberOfPeople'>Кол-во людей</label></td>
+                  <td><input value={numberOfPeople} onChange={(e) => onInputChange(e)} className="auth-input" name="numberOfPeople"/></td>
+                  </tr>
+                  <tr>
+                  <td><label for='room'>Номер</label></td>
+                  <td><input value={room.id} onChange={(e) => onInputChange(e)} className="auth-input" name="room"/></td>
+                </tr>
+                <tr>
+                  <td><label for='user'>Пользователь</label></td>
+                  <td><input disabled value={user.id} onChange={(e) => onInputChange(e)} className="auth-input" name="user"/></td>
+                </tr>
+            </table>
+            <button onClick={updateBooking} className='btn btn-warning'>update</button>
         </form>
         <div>
-            <button onClick={updateBooking}>update</button>
+            
         </div>
     </div>
     )

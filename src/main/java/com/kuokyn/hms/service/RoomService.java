@@ -31,7 +31,7 @@ public class RoomService {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    public Long getRoomsAmount() {
+    public Long getRoomAmount() {
         return roomRepository.count();
     }
 
