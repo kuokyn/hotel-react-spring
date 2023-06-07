@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './booking.css'
+import '../css/booking.css'
 
 export const Booking = () => {
     const {id} = useParams();
@@ -30,14 +30,14 @@ export const Booking = () => {
 
     const updateBooking = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/admin/bookings/${id}`, booking)
+        await axios.put(`http://localhost:8080/bookings/${id}`, booking)
         // .then(res => res.data)
         .catch(err => console.error("Wasn't able to update property.", err))
-        .then(navigate("/admin/bookings"))
+        .then(navigate("/bookings"))
     }
 
     const loadBooking = async () => {
-        const result = await axios.get(`http://localhost:8080/admin/bookings/${id}`);
+        const result = await axios.get(`http://localhost:8080/bookings/${id}`);
         setBooking(result.data);
     }
 
@@ -46,7 +46,7 @@ export const Booking = () => {
     }
 
     return (
-    <div>
+    <div className="mybooking-edit-section">
         <form>
             <table>
                 <tr>
@@ -67,7 +67,7 @@ export const Booking = () => {
                   </tr>
                   <tr>
                   <td><label for='room'>Номер</label></td>
-                  <td><input value={room.id} onChange={(e) => onInputChange(e)} className="auth-input" name="room"/></td>
+                  <td><input disabled value={room.id} onChange={(e) => onInputChange(e)} className="auth-input" name="room"/></td>
                 </tr>
                 <tr>
                   <td><label for='user'>Пользователь</label></td>

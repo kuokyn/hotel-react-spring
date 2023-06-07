@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Service {
+public class Servicee {
 
     @Id
     @Column(name = "title", length = 128, nullable = false)

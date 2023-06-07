@@ -1,7 +1,5 @@
 FROM openjdk:17-jdk-alpine
 
-LABEL maintainer="Your Name <your.email@example.com>"
-
 ENV APP_HOME=/app
 WORKDIR $APP_HOME
 

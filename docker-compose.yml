@@ -2,39 +2,45 @@ version: '3'
 
 services:
   db:
+    container_name: database
     image: mysql:latest
     ports:
       - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql/data
+      - ./src/main/resources/sql:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=0000
       - MYSQL_DATABASE=mydb
       - MYSQL_USER=root
       - MYSQL_PASSWORD=0000
+    restart: unless-stopped
 
   backend:
+    container_name: server
     build: .
     ports:
       - "8080:8080"
     depends_on:
       - db
     environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_NAME=hotel_db
-      - DB_USER=root
-      - DB_PASSWORD=0000
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/hotel_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=0000
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   frontend:
+    container_name: client
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_NAME=hotel_db
-      - DB_USER=root
-      - DB_PASSWORD=0000
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+
+  volumes:
+    mysql-data:

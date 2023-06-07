@@ -2,64 +2,26 @@ import React from 'react'
 // import { Link } from 'react-router-dom';
 import AuthService from '../services/authService';
 import { Link } from 'react-router-dom';
-import './profile.css';
+import '../css/profile.css';
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
 
   return (
     <section className='section profile'>
-      <div className="container profile-content">
-        <div className="jumbotron">
-          <h1>Профиль</h1>
-          <h3>
-            <strong>{currentUser.user.name + " " + currentUser.user.surname}</strong> 
-          </h3>
-        </div>
-        <p>
-          <strong>phone:</strong> {currentUser.user.phone}
-        </p>
-        <p>
-          <strong>Email:</strong> {currentUser.user.email}
-        </p>
-        <Link to="/profile/edit">Edit</Link>
+      <div className='profile-box'>
+        <form className="profile-box-form">
+          <label htmlFor="name">Имя</label>
+          <input required disabled className="profile-box-input" type={"text"} name="name" placeholder='Имя' value={currentUser.user.name} />
+          <label htmlFor="surname">Фамилия</label>
+          <input required disabled className="profile-box-input" type="text" name="surname" value={currentUser.user.surname} placeholder='Фамилия' />
+          <label htmlFor="email">Почта</label>
+          <input required disabled className="profile-box-input" type="email" name="email" value={currentUser.user.email} placeholder='Почта' />
+          <label htmlFor="phone">Номер телефона</label>
+          <input required disabled className="profile-box-input" type="text" name="phone" value={currentUser.user.phone} placeholder='Номер телефона' />
+        </form>
       </div>
-      <div className="container home-content">
-          <div className="searchBooking flex">
-            <div className="checkin-input">
-              <label htmlFor="checkin">Дата въезда</label>
-              <div className="input flex">
-                <input required type="date" />
-              </div>
-            </div>
-            <div className="checkout-input">
-              <label htmlFor="checkout">Дата выезда</label>
-              <div className="input flex">
-                <input required type="date" />
-              </div>
-            </div>
-            <div className="people-input">
-              <label htmlFor="people">Взрослые</label>
-              <div className="input flex">
-                <input required placeholder="0" type="text" />
-              </div>
-            </div>
-            <div className="price-input">
-              <label htmlFor="price">Цена</label>
-              <div className="input flex">
-                <span>1500</span>
-                <input required type="range" max="10000" min="1500" />
-                <span>10000</span>
-              </div>
-            </div>
-            <button className='search-btn btn'>
-              <Link to={"/login"}>
-                Найти
-              </Link>
-            </button>
-          </div>
-        </div>
-    </section>
+    </section >
   );
 };
 

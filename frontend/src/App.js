@@ -1,4 +1,5 @@
-import './style.css';
+import './css/style.css';
+import './css/admin.css';
 import {
   Routes,
   Route,
@@ -7,22 +8,24 @@ import {
 import {Space} from 'antd';
 import { useState, useEffect } from 'react';
 import AuthService from './services/authService';
-import Home from "./pages/home/Home";
+import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Rooms from "./pages/Rooms";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import UsersRoutes from './utils/UsersRoutes';
 import Error404 from './pages/Error404';
 import MyBookings from './pages/MyBookings';
-import Footer from './components/footer/Footer';
-import AdminBar from './components/adminbar/AdminBar';
-import AdminHeader from './components/admin_header/AdminHeader';
+import Booking from './pages/Booking';
+import Footer from './components/Footer';
+import AdminBar from './components/AdminBar';
+import AdminHeader from './components/AdminHeader';
 import AdminPageContent from './pages/admin/AdminPageContent';
-import EditProfile from './pages/EditProfile';
+import AddBooking from './pages/AddBooking';
+// import EditProfile from './pages/EditProfile';
 
 function App() {
   const [showAdmin, setShowAdmin] = useState(false);
@@ -56,8 +59,9 @@ function App() {
           <Routes>
               <Route element={<UsersRoutes/>}>
                 <Route exact path="/profile" element={<Profile/>} />
-                <Route exact path="/profile/edit" element={<EditProfile/>} />
+                <Route exact path="/booking/:id" element={<Booking/>} />
                 <Route exact path="/bookings" element={<MyBookings/>} />
+                <Route exact path="/bookings/add/:id" element={<AddBooking/>} />
               </Route>
               {!showAdmin && (
                 <>

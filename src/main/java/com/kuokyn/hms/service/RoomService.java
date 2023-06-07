@@ -35,14 +35,14 @@ public class RoomService {
         return roomRepository.count();
     }
 
-    /*public ResponseEntity<Room> createRoom(Room room) {
-        try {
-            Room newRoom = roomRepository.save(room);
-            return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    public ResponseEntity<Room> createRoom(Room room) {
+//        try {
+//            Room newRoom = roomRepository.save(room);
+//            return new ResponseEntity<>(newRoom, HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     public ResponseEntity<Room> updateRoom(Long id, Room room) {
         Optional<Room> roomData = roomRepository.findById(id);
@@ -64,5 +64,5 @@ public class RoomService {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 }

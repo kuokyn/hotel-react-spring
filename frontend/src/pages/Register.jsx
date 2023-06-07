@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import AuthService from '../services/authService';
-import './auth.css';
+import '../css/auth.css';
 const Register = () => {
 
   let navigate = useNavigate();

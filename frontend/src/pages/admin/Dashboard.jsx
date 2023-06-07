@@ -33,6 +33,7 @@ import {TbHotelService} from "react-icons/tb";
     const [inventory, setInventory] = useState(0);
     const [customers, setCustomers] = useState(0);
     const [revenue, setRevenue] = useState(0);
+    const [workers, setWorkers] = useState(0);
      const getDashboard = () => {
         return fetch("http://localhost:8080/admin").then((res) => res.json());
       };
@@ -43,6 +44,7 @@ import {TbHotelService} from "react-icons/tb";
         setCustomers(res.userAmount);
         setRevenue(res.revenue);
         setInventory(res.roomAmount)
+        setWorkers(res.workerAmount)
       });
     }, []);
   
@@ -95,6 +97,21 @@ import {TbHotelService} from "react-icons/tb";
             title={"Пользователи"}
             value={customers}
           />
+           <DashboardCard
+            icon={
+              <UserOutlined
+                style={{
+                  color: "purple",
+                  backgroundColor: "rgba(0,255,255,0.25)",
+                  borderRadius: 20,
+                  fontSize: 24,
+                  padding: 8,
+                }}
+              />
+            }
+            title={"Работники"}
+            value={workers}
+          />
           <DashboardCard
             icon={
               <DollarCircleOutlined
@@ -113,7 +130,7 @@ import {TbHotelService} from "react-icons/tb";
         </Space>
         <Space>
           <RecentOrders />
-          <DashboardChart />
+          {/* <DashboardChart /> */}
         </Space>
       </Space>
     );
@@ -169,55 +186,55 @@ import {TbHotelService} from "react-icons/tb";
     );
   }
   
-  function DashboardChart() {
-    const [reveneuData, setReveneuData] = useState({
-      labels: [],
-      datasets: [],
-    });
-    const getRevenue = () => {
-        return fetch("https://dummyjson.com/carts").then((res) => res.json());
-      };
-    useEffect(() => {
-      getRevenue().then((res) => {
-        const labels = res.carts.map((cart) => {
-          return `Бронь-${cart.userId}`;
-        });
-        const data = res.carts.map((cart) => {
-          return cart.discountedTotal;
-        });
+  // function DashboardChart() {
+  //   const [reveneuData, setReveneuData] = useState({
+  //     labels: [],
+  //     datasets: [],
+  //   });
+  //   const getRevenue = () => {
+  //       return fetch("https://dummyjson.com/carts").then((res) => res.json());
+  //     };
+  //   useEffect(() => {
+  //     getRevenue().then((res) => {
+  //       const labels = res.carts.map((cart) => {
+  //         return `Бронь-${cart.userId}`;
+  //       });
+  //       const data = res.carts.map((cart) => {
+  //         return cart.discountedTotal;
+  //       });
   
-        const dataSource = {
-          labels,
-          datasets: [
-            {
-              label: "Доход",
-              data: data,
-              backgroundColor: "rgba(255, 0, 0, 1)",
-            },
-          ],
-        };
+  //       const dataSource = {
+  //         labels,
+  //         datasets: [
+  //           {
+  //             label: "Доход",
+  //             data: data,
+  //             backgroundColor: "rgba(255, 0, 0, 1)",
+  //           },
+  //         ],
+  //       };
   
-        setReveneuData(dataSource);
-      });
-    }, []);
+  //       setReveneuData(dataSource);
+  //     });
+  //   }, []);
   
-    const options = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: "bottom",
-        },
-        title: {
-          display: true,
-          text: "Доход по бронированию",
-        },
-      },
-    };
+  //   const options = {
+  //     responsive: true,
+  //     plugins: {
+  //       legend: {
+  //         position: "bottom",
+  //       },
+  //       title: {
+  //         display: true,
+  //         text: "Доход по бронированию",
+  //       },
+  //     },
+  //   };
   
-    return (
-      <Card style={{ width: 500, height: 250 }}>
-        <Bar options={options} data={reveneuData} />
-      </Card>
-    );
-  }
+  //   return (
+  //     <Card style={{ width: 500, height: 250 }}>
+  //       <Bar options={options} data={reveneuData} />
+  //     </Card>
+  //   );
+  // }
   export default Dashboard;

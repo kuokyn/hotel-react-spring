@@ -1,7 +1,9 @@
 package com.kuokyn.hms.repo;
 
-import com.kuokyn.hms.entity.Service;
+import com.kuokyn.hms.entity.Servicee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ServiceRepository extends JpaRepository<Service, String> {
+@Repository
+public interface ServiceRepository extends JpaRepository<Servicee, String> {
 }

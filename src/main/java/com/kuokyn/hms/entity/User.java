@@ -1,6 +1,8 @@
 package com.kuokyn.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
@@ -87,5 +89,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @JsonCreator
+    public User(@JsonProperty("id") Integer id){
+        this.id = Long.valueOf(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.kuokyn.hms.service;
 
 import com.kuokyn.hms.entity.Booking;
+import com.kuokyn.hms.DTO.BookingDTO;
 import com.kuokyn.hms.entity.Room;
 import com.kuokyn.hms.entity.User;
 import com.kuokyn.hms.repo.BookingRepository;
@@ -13,9 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +26,6 @@ public class BookingService {
     private RoomRepository roomRepository;
 
     public ResponseEntity<List<Booking>> getAllBookings() {
-//        getUserBookings();
         try {
             List<Booking> bookings = new ArrayList<>(bookingRepository.findAll());
             if (bookings.isEmpty()) {
@@ -59,16 +58,17 @@ public class BookingService {
 
     // проблема - проверить, свободны ли даты на букинг
     // наверное, это делается во фронте по фильтрам, но пока этого нет
-    public ResponseEntity<Booking> createBooking(Booking booking) {
-        System.out.println("------starting search for ids");
-        User user = userRepository.findUserById(booking.getUser().getId());
-        System.out.println(user);
-        Long roomId = booking.getRoom().getId();
-        System.out.println("room id from post query is === " + roomId);
+    public ResponseEntity<Booking> createBooking(BookingDTO bookingDTO) {
+
+        User user = userRepository.findUserById(Long.valueOf(bookingDTO.getUser()));
+        Long roomId = Long.valueOf(bookingDTO.getRoom());
         Room room = roomRepository.findRoomById(roomId);
-        System.out.println(room);
+        Booking booking = new Booking();
         booking.setRoom(room);
         booking.setUser(user);
+        booking.setCheckIn(LocalDate.parse(bookingDTO.getCheckIn()));
+        booking.setCheckOut(LocalDate.parse(bookingDTO.getCheckOut()));
+        booking.setNumberOfPeople(Integer.valueOf(bookingDTO.getNumberOfPeople()));
         System.out.println(booking);
         try {
             Booking newBooking = bookingRepository.save(booking);
@@ -106,13 +106,5 @@ public class BookingService {
        return bookingRepository.count();
     }
 
-    public ResponseEntity<List<Booking>> getBookingCheckouts() {
-        List<Booking> bookingCheckouts = new ArrayList<>(bookingRepository.getBookingCheckouts());
-        if (!bookingCheckouts.isEmpty()) {
-            return new ResponseEntity<>(bookingCheckouts, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-    }
+
 }

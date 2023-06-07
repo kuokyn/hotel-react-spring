@@ -1,8 +1,7 @@
 package com.kuokyn.hms.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
@@ -43,25 +43,12 @@ public class Booking {
 
     @Column(name = "check_in_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date checkIn;
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+    private LocalDate checkIn;
 
     @Column(name = "check_out_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date checkOut;
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+    private LocalDate checkOut;
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-    public Booking(@Valid Room room, @Valid User user, int numberOfPeople, String checkIn, String checkOut) {
-        this.room = room;
-        this.user = user;
-        this.numberOfPeople = numberOfPeople;
-        try {
-            this.checkIn = formatter.parse(checkIn);
-            this.checkOut = formatter.parse(checkOut);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
